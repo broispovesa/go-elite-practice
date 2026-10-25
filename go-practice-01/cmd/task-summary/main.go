@@ -40,5 +40,32 @@ func main() {
 	for _, status := range statuses {
 		counts[status]++
 	}
-	fmt.Printf("Статистика: new=%d, in_progress=%d, done=%d", counts["new"], counts["in_progress"], counts["done"])
+	fmt.Printf("Статистика: new=%d, in_progress=%d, done=%d\n", counts["new"], counts["in_progress"], counts["done"])
+	// дополнительно
+	fmt.Printf("Первое вхождение: %d\n", findStatus(statuses, "done"))
+	fmt.Printf("Процент выполненного: %f", completionPercent(statuses))
+}
+
+func findStatus(statuses []string, target string) int {
+	for ind, status := range statuses {
+		if status == target {
+			return ind
+		}
+	}
+	return -1
+}
+
+func completionPercent(statuses []string) float64 {
+	all := 0.0
+	completed := 0.0
+	for _, status := range statuses {
+		if status == "done" {
+			completed += 1
+		}
+		all += 1
+	}
+	if completed != 0 {
+		return 100 * completed / all
+	}
+	return 0
 }
