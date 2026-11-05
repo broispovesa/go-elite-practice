@@ -47,20 +47,22 @@ func main() {
 	tasks := []Task{
 		{ID: 1, Title: "Установить Go", Status: "done", Priority: 1},
 		{ID: 2, Title: "Освоить функции", Status: "in_progress", Priority: 2},
-		{ID: 3, Title: "Изучить структуры", Status: "new", Priority: 3}}
-	ptr := findTaskByID(tasks, 2)
-	ptr.Complete()
-	ptr.SetPriority(3)
+		{ID: 3, Title: "Изучить структуры", Status: "new", Priority: 3}} // объявил задачи
+	ptr := findTaskByID(tasks, 2) // получили указатель
+	if ptr != nil {               // работает, только если указатель существует
+		ptr.Complete()
+		ptr.SetPriority(3)
+	}
 	k := 0
-	for _, task := range tasks {
+	for _, task := range tasks { // считаем выполненые просто циклом
 		fmt.Println(task.Summary())
 		if task.Status == "done" {
 			k += 1
 		}
 	}
 	fmt.Printf("Задач завершено: %d\n", k)
-	if findTaskByID(tasks, 99) == nil {
+	if findTaskByID(tasks, 99) == nil { // ищем с ID 99 и не находим
 		fmt.Println("Задача не найдена")
 	}
-	fmt.Print(len(tasksByStatus(tasks, "in_progress")))
+	fmt.Print(len(tasksByStatus(tasks, "in_progress"))) // разные искомые статусы дают разные значения
 }
