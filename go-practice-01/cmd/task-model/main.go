@@ -33,6 +33,16 @@ func findTaskByID(tasks []Task, id int) *Task {
 	return nil
 }
 
+func tasksByStatus(tasks []Task, status string) []Task {
+	output := []Task{}
+	for _, t := range tasks {
+		if t.Status == status {
+			output = append(output, t)
+		}
+	}
+	return output
+}
+
 func main() {
 	tasks := []Task{
 		{ID: 1, Title: "Установить Go", Status: "done", Priority: 1},
@@ -52,4 +62,5 @@ func main() {
 	if findTaskByID(tasks, 99) == nil {
 		fmt.Println("Задача не найдена")
 	}
+	fmt.Print(len(tasksByStatus(tasks, "in_progress")))
 }
