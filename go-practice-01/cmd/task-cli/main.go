@@ -66,7 +66,7 @@ func (s *MemoryStore) Complete(id int) error {
 			return nil
 		}
 	}
-	return ErrNotFound
+	return fmt.Errorf("id %d: %w", id, ErrNotFound)
 }
 
 func (s *MemoryStore) Delete(id int) error {
@@ -76,11 +76,11 @@ func (s *MemoryStore) Delete(id int) error {
 			return nil
 		}
 	}
-	return ErrNotFound
+	return fmt.Errorf("id %d: %w", id, ErrNotFound)
 }
 
 func (s *MemoryStore) List() []Task {
-	return s.tasks
+	return append([]Task(nil), s.tasks...)
 }
 
 func readLine(scanner *bufio.Scanner, prompt string) (string, bool) {
